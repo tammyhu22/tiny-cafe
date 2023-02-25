@@ -1,8 +1,7 @@
 # Tiny Cafe
-
 This is a small cafe game created for HCDE 438.
 --
-template instructions below:
+Template instructions below:
 
 View the deployed template [here](http://twigg.gg/webdev-template/).
 
