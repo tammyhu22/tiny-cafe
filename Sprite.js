@@ -42,12 +42,12 @@ class Sprite {
 
         // draw shadow before npc
         this.isShadowLoaded && ctx.drawImage(this.shadow, x, y);
-
+        console.log(this.isLoaded);
         this.isLoaded && ctx.drawImage(this.image,
             0,0,
             32,32,
             x,y,
             32,32
-        )
+        );
     }
 }
