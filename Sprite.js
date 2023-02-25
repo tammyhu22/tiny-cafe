@@ -9,7 +9,7 @@ class Sprite {
         }
 
         // shadow
-        this.shadow = newImage();
+        this.shadow = new Image();
         this.useShadow = true; //config.useShadow || false
         if (this.useShadow) {
             this.image.src = "/images/shadow.png";
