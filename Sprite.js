@@ -6,17 +6,17 @@ class Sprite {
         this.image.src = config.src; // calling sprite, pass in config
         this.image.onload = () => {
             this.isLoaded = true;
-        }
+        };
 
         // shadow
         this.shadow = new Image();
         this.useShadow = true; //config.useShadow || false
         if (this.useShadow) {
-            this.image.src = "/images/shadow.png";
+            this.shadow.src = "/images/shadow.png";
         }
         this.shadow.onload = () => {
             this.isShadowLoaded = true;
-        }
+        };
 
 
         // configuring animation and initial state
