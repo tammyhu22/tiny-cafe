@@ -20,34 +20,73 @@ class Sprite {
 
 
         // configuring animation and initial state
+        // add new animations here
         this.animations = config.animations || {
-            idleDown: [
-                [0,0]
-            ],
-            // walkDown: [
-            //     [0,0], [1,0], [2,0], [3,0]
-            // ],
+            "idle-down": [ [0,0] ],
+            "idle-right" : [ [0,1] ],
+            "idle-up" : [ [0,2] ],
+            "idle-left" : [ [0,3] ],
+            "walk-down": [ [1,0], [0,0], [3,0], [0,0] ],
+            "walk-right": [ [1,1], [0,1], [3,1], [0,1] ],
+            "walk-up": [ [1,2], [0,2], [3,2], [0,2] ],
+            "walk-left": [ [1,3], [0,3], [3,3], [0,3] ]
         }
-        this.currentAnimation = config.currentAnimation || "idleDown";
+        this.currentAnimation = "idle-left" //config.currentAnimation || "idle-down"; // which animation frame
         this.currentAnimationFrame = 0;
+
+        this.animationFrameLimit = config.animationFrameLimit || 4 ; // how many game loop frames of one cut of sprite sheet (increased will slower), default 16
+        this.animationFrameProgress = this.animationFrameLimit;
 
         // reference the game object
         this.gameObject = config.gameObject;
     }
 
+    get frame () {
+        return this.animations[this.currentAnimation][this.currentAnimationFrame];
+    }
 
+    setAnimation(key) {
+        if (this.currentAnimation !== key) {
+            this.currentAnimation = key;
+            this.currentAnimationFrame = 0;
+            this.animationFrameProgress = this.animationFrameLimit; // cadence counter
+        }
+    }
+
+    updateAnimationProgress() {
+        //Downtick frame progress
+        if(this.animationFrameProgress > 0) {
+            this.animationFrameProgress -= 1;
+            return;
+        }
+
+        // reset the counter
+        this.animationFrameProgress = this.animationFrameLimit;
+
+        this.currentAnimationFrame += 1;
+
+        if(this.frame === undefined) {
+            this.currentAnimationFrame = 0;
+        }
+    }
+ 
     draw(ctx) {
-        const x = this.gameObject.x * 16 - 5;
-        const y = this.gameObject.y * 16 + 2;
+        const x = this.gameObject.x - 5;
+        const y = this.gameObject.y + 2;
 
         // draw shadow before npc
         this.isShadowLoaded && ctx.drawImage(this.shadow, x, y);
+
+        const[frameX, frameY] = this.frame;
+
         console.log(this.isLoaded);
         this.isLoaded && ctx.drawImage(this.image,
-            0,0,
+            frameX * 32,frameY * 32,
             32,32,
             x,y,
             32,32
         );
+
+        this.updateAnimationProgress();
     }
 }
