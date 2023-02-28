@@ -10,20 +10,27 @@ class Overworld {
     const step = () => {
         // clear canvas for every frame
         this.ctx.clearRect(0,0,this.canvas.width, this.canvas.height);
+        // establish camera person (can be changed to npc, or whoever; useful for cutscenes?)
+        const cameraPerson = this.map.gameObjects.hero;
+
+        // update all objects
+        Object.values(this.map.gameObjects).forEach(object => {
+            object.update({
+                arrow: this.directionInput.direction,
+                map: this.map,
+            });
+        })
 
         // draw lower layer
-        this.map.drawLowerImage(this.ctx);
+        this.map.drawLowerImage(this.ctx, cameraPerson);
 
         // draw game objects
         Object.values(this.map.gameObjects).forEach(object => {
-            object.update({
-                arrow: this.directionInput.direction
-
-            }); // state updates every frame
-            object.sprite.draw(this.ctx);
+            // state updates every frame
+            object.sprite.draw(this.ctx, cameraPerson);
         })
         // draw upper layer
-        this.map.drawUpperImage(this.ctx);
+        this.map.drawUpperImage(this.ctx, cameraPerson);
 
         requestAnimationFrame(() => {
             step();
@@ -34,7 +41,8 @@ class Overworld {
 
  init(){
     this.map = new OverworldMap(window.OverworldMaps.Cafe); // config data from cafe
-    
+    this.map.mountObjects();
+
     this.directionInput = new DirectionInput();
     this.directionInput.init();
     this.directionInput.direction; // "down"

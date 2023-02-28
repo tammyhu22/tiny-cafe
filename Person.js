@@ -14,32 +14,55 @@ class Person extends GameObject {
     }
 
     update(state) {
-        this.updatePosition();
-        this.updateSprite(state);
-
-        if(this.isPlayerControlled && this.movingProgressRemaining === 0 && state.arrow) {
-            this.direction = state.arrow;
-            this.movingProgressRemaining = 16;
+        if (this.movingProgressRemaining > 0) {
+            this.updatePosition();
+        } else {
+            // more cases for starting to walk will come here
+            //
+            //
+            
+            // case: we're keyboard ready and have an arrow pressed
+            if(this.isPlayerControlled && state.arrow) {
+                this.startBehavior(state, {
+                    type: "walk",
+                    direction: state.arrow
+                })
+            }
+            this.updateSprite(state);
         }
+    }
+
+    startBehavior(state, behavior) {
+        // set character direction to whatever behavior has
+        this.direction = state.arrow;
+        if (behavior.type === "walk") {
+
+            // stop here if space is not free
+            if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+                return;
+            }
+
+            // ready to walk
+            state.map.moveWall(this.x, this.y, this.direction); // for every step hero is taking, wall moves with him
+            this.movingProgressRemaining = 16;  
+        }
+
     }
 
     updatePosition() {
-        if (this.movingProgressRemaining > 0) {
             const [property, change] = this.directionUpdate[this.direction];
             this[property] += change;
             this.movingProgressRemaining -= 1; // work to 0, done moving to next cell eventually
-        }
     }
 
-    updateSprite(state) {
-        // if made to the next space and make sure arrow is not pressed = stop/idle
-        if(this.isPlayerControlled && this.movingProgressRemaining === 0 && !state.arrow) {
-            this.sprite.setAnimation("idle-" + this.direction);
-            return;
-        }
-        
+    updateSprite() {
+
         if(this.movingProgressRemaining > 0) {
             this.sprite.setAnimation("walk-" + this.direction);
+            return;
         }
+        this.sprite.setAnimation("idle-" + this.direction);
+        // if made to the next space and make sure arrow is not pressed = stop/idle
+        
     }
 }
