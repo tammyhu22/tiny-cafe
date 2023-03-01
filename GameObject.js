@@ -39,6 +39,7 @@ class GameObject {
         // setting up our event with relevant info
         let eventConfig = this.behaviorLoop[this.behaviorLoopIndex];
         eventConfig.who = this.id; // hero, npcA, npcB
+        // console.log(behaviorLoopIndex) --> undefined
 
         // create an event instance out of our next event config
         const eventHandler = new OverworldEvent({ map, event: eventConfig }); // overworld event will contain instructions
@@ -46,6 +47,7 @@ class GameObject {
 
         // setting the next event to fire
         this.behaviorLoopIndex += 1;
+        // console.log(behaviorLoopIndex)
         if (this.behaviorLoopIndex === this.behaviorLoop.length) {
             this.behaviorLoopIndex = 0;
         }

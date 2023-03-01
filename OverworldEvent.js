@@ -12,6 +12,7 @@ class OverworldEvent {
         // call resolve when done
         const who = this.map.gameObjects[ this.event.who ];
         console.log(who);
+        console.log(this.event);
         who.startBehavior({
             map: this.map
         }, {

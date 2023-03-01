@@ -34,7 +34,7 @@ class Person extends GameObject {
 
     startBehavior(state, behavior) {
         // set character direction to whatever behavior has
-        this.direction = state.arrow;
+        this.direction = behavior.direction;
         if (behavior.type === "walk") {
 
             // stop here if space is not free

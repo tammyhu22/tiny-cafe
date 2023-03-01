@@ -87,9 +87,9 @@ window.OverworldMaps = {
                 behaviorLoop: [ // idle behavior loop
                     { type: "walk", direction: "left" },
                     // { type: "stand", direction: "up", time: 800 },
-                    { type: "walk", direction: "up" },
-                    { type: "walk", direction: "right" }, 
                     { type: "walk", direction: "down" },
+                    { type: "walk", direction: "right" }, 
+                    { type: "walk", direction: "up" },
                 ]
             }),
         },
