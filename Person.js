@@ -45,6 +45,7 @@ class Person extends GameObject {
             // ready to walk
             state.map.moveWall(this.x, this.y, this.direction); // for every step hero is taking, wall moves with him
             this.movingProgressRemaining = 16;  
+            this.updateSprite(state);
         }
 
     }
@@ -53,6 +54,14 @@ class Person extends GameObject {
             const [property, change] = this.directionUpdate[this.direction];
             this[property] += change;
             this.movingProgressRemaining -= 1; // work to 0, done moving to next cell eventually
+
+            if(this.movingProgressRemaining === 0) {
+                // we finished the walk!
+
+                utils.emitEvent("PersonWalkingComplete", {
+                    whoId: this.id
+                })
+            }
     }
 
     updateSprite() {

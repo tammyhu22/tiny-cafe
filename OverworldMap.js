@@ -9,6 +9,8 @@ class OverworldMap {
         this.upperImage = new Image();
         this.upperImage.src = config.upperSrc; // things drawn above the character
 
+        this.isCutscenePlaying = false;
+
     }
 
     drawLowerImage(ctx, cameraPerson) {
@@ -33,10 +35,12 @@ class OverworldMap {
     }
 
     mountObjects() {
-        Object.values(this.gameObjects).forEach(o => {
+        Object.keys(this.gameObjects).forEach(key => {
             
+            let object = this.gameObjects[key];
+            object.id = key; // like hero, or npc1
             // To do: determine if this object should actually mount, has an action happened
-            o.mount(this);
+            object.mount(this);
         })
     }
 
@@ -65,11 +69,29 @@ window.OverworldMaps = {
                 x: utils.withGrid(5),
                 y: utils.withGrid(6),
             }),
-            npc1: new Person({
+            npcA: new Person({
                 x: utils.withGrid(10),
                 y: utils.withGrid(8),
-                src: "/images/npc1.png"
-            })
+                src: "/images/npc1.png",
+                behaviorLoop: [
+                    { type: "stand", direction: "left", time: 800 }, //looking left
+                    { type: "stand", direction: "up", time: 800 },
+                    { type: "stand", direction: "right", time: 1200 },
+                    { type: "stand", direction: "up", time: 300 }, // loops
+                ]
+            }),
+            npcB: new Person({
+                x: utils.withGrid(10),
+                y: utils.withGrid(3),
+                src: "/images/npc2.png",
+                behaviorLoop: [ // idle behavior loop
+                    { type: "walk", direction: "left" },
+                    // { type: "stand", direction: "up", time: 800 },
+                    { type: "walk", direction: "up" },
+                    { type: "walk", direction: "right" }, 
+                    { type: "walk", direction: "down" },
+                ]
+            }),
         },
         walls: {
             // dynamic key -> evaluate to string
