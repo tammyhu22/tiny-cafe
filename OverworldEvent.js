@@ -28,7 +28,6 @@ class OverworldEvent {
             }
         }
         document.addEventListener("PersonWalkingComplete", completeHandler)
-        console.log(addEventListener("PersonWalkingComplete"))
     }
 
     init() {
