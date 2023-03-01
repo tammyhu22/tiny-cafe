@@ -83,7 +83,7 @@ window.OverworldMaps = {
             npcB: new Person({
                 x: utils.withGrid(10),
                 y: utils.withGrid(3),
-                src: "/images/npc2.png",
+                src: "/images/npc3.png",
                 behaviorLoop: [ // idle behavior loop
                     { type: "walk", direction: "left" },
                     // { type: "stand", direction: "up", time: 800 },
@@ -224,7 +224,7 @@ window.OverworldMaps = {
             npc2: new GameObject({
                 x: 9,
                 y: 7,
-                src: "/images/npc2.png"
+                src: "/images/npc3.png"
             })
         }
     },

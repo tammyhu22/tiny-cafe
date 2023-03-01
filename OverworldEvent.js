@@ -11,6 +11,7 @@ class OverworldEvent {
     walk(resolve) {
         // call resolve when done
         const who = this.map.gameObjects[ this.event.who ];
+        console.log(who);
         who.startBehavior({
             map: this.map
         }, {
@@ -26,6 +27,7 @@ class OverworldEvent {
             }
         }
         document.addEventListener("PersonWalkingComplete", completeHandler)
+        console.log(addEventListener("PersonWalkingComplete"))
     }
 
     init() {

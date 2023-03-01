@@ -25,7 +25,7 @@ class GameObject {
         }, 10)
     }
 
-    update(){
+    update() {
 
     }
 
