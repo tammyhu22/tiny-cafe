@@ -25,7 +25,9 @@ class Overworld {
         this.map.drawLowerImage(this.ctx, cameraPerson);
 
         // draw game objects
-        Object.values(this.map.gameObjects).forEach(object => {
+        Object.values(this.map.gameObjects).sort((a,b) => {
+            return a.y - b.y;
+        }).forEach(object => {
             // state updates every frame
             object.sprite.draw(this.ctx, cameraPerson);
         })
@@ -45,36 +47,25 @@ class Overworld {
 
     this.directionInput = new DirectionInput();
     this.directionInput.init();
-    this.directionInput.direction; // "down"
+
+    // this.directionInput.direction; // "down"
 
     this.startGameLoop();
 
-    console.log("Hello from the Overworld", this);
+    this.map.startCutscene([
+        { who: "hero", type: "walk", direction: "up" },
+        { who: "hero", type: "walk", direction: "right" },
+        { who: "npcB", type: "walk", direction: "left" },
+        { who: "npcB", type: "walk", direction: "left" },
+        { who: "npcB", type: "walk", direction: "left" },
+        { who: "npcB", type: "walk", direction: "down" },
+        { who: "npcB", type: "walk", direction: "down" },
+        { who: "npcB", type: "stand", direction: "left", time: 800 },
+
+    ])
 
 //     // whenever init, we will create a new image, assign source, download it, and when the source is downloaded,
 //     // copy pixels over to canvas which has context, which allows us to draw to canvas
-//     const image = new Image();
-//     image.onload = () => {
-//         this.ctx.drawImage(image,0,0) //draw from 0,0
-//     }; // set up to do something once done loading
-//     image.src = "/images/Map.png"; //download
-
-// // place some game objects!
-// const hero = new GameObject({
-//     x: 5,
-//     y: 6,
-// })
-// const npc1 = new GameObject({
-//     x: 9,
-//     y: 8,
-//     src: "/images/npc1.png"
-// })
-
-// setTimeout(() => {
-//     hero.sprite.draw(this.ctx);
-//     npc1.sprite.draw(this.ctx);
-// }, 200)
-
 
  }
 

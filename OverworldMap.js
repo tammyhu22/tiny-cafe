@@ -44,6 +44,26 @@ class OverworldMap {
         })
     }
 
+    async startCutscene(events) {
+        this.isCutscenePlaying = true;
+        
+        // start a loop of async events
+        // await each one
+        for(let i = 0; i < events.length; i++) {
+            const eventHandler = new OverworldEvent({
+                event: events[i],
+                map: this,
+            })
+            console.log(events.length);
+            console.log(i);
+
+            await eventHandler.init();
+        }
+
+        this.isCutscenePlaying = false;
+        console.log(this.isCutscenePlaying);
+    }
+
     addWall(x,y) {
         this.walls[`${x}, ${y}`] = true;
     }
@@ -86,7 +106,7 @@ window.OverworldMaps = {
                 src: "/images/npc3.png",
                 behaviorLoop: [ // idle behavior loop
                     { type: "walk", direction: "left" },
-                    // { type: "stand", direction: "up", time: 800 },
+                    { type: "stand", direction: "up", time: 800 },
                     { type: "walk", direction: "down" },
                     { type: "walk", direction: "right" }, 
                     { type: "walk", direction: "up" },

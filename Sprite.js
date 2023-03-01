@@ -79,7 +79,6 @@ class Sprite {
 
         const[frameX, frameY] = this.frame;
 
-        console.log(this.isLoaded);
         this.isLoaded && ctx.drawImage(this.image,
             frameX * 32,frameY * 32,
             32,32,
