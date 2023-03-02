@@ -1,6 +1,7 @@
 class OverworldMap {
     constructor(config) {
         this.gameObjects = config.gameObjects;
+        this.cutsceneSpaces = config.cutsceneSpaces || {}; 
         this.walls = config.walls || {};
 
         this.lowerImage = new Image();
@@ -31,7 +32,7 @@ class OverworldMap {
 
     isSpaceTaken(currentX, currentY, direction) {
         const {x,y} = utils.nextPosition(currentX, currentY, direction);
-        return this.walls[`${x}, ${y}`] || false; // true if wall is there
+        return this.walls[`${x},${y}`] || false; // true if wall is there
     }
 
     mountObjects() {
@@ -64,15 +65,36 @@ class OverworldMap {
         
         // reset NPCs to do idle behavior
         // CHANGE THIS LATER IN PART 17
-        Object.values(this.gameObjects.forEach(object => object.doBehaviorEvent(this)));
+       // Object.values(this.gameObjects.forEach(object => object.doBehaviorEvent(this)));
+    }
+
+
+    checkForActionCutscene() {
+        const hero = this.gameObjects["hero"];
+        const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction);
+        const match = Object.values(this.gameObjects).find(object => {
+            return `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`
+        });
+        if (!this.isCutscenePlaying && match && match.talking.length) {
+            this.startCutscene(match.talking[0].events);
+        }
+    }
+
+    checkForFootstepCutscene() {
+        const hero = this.gameObjects["hero"];
+        const match = this.cutsceneSpaces[ `${hero.x},${hero.y}` ];
+        console.log({ match });
+        if (!this.isCutscenePlaying && match) {
+            this.startCutscene(match[0].events);
+        }
     }
 
     addWall(x,y) {
-        this.walls[`${x}, ${y}`] = true;
+        this.walls[`${x},${y}`] = true;
     }
 
     removeWall(x,y) {
-        delete this.walls[`${x}, ${y}`]
+        delete this.walls[`${x},${y}`]
     }
 
     moveWall(wasX,wasY, direction) {
@@ -101,6 +123,15 @@ window.OverworldMaps = {
                     { type: "stand", direction: "up", time: 800 },
                     { type: "stand", direction: "right", time: 1200 },
                     { type: "stand", direction: "up", time: 300 }, // loops
+                ],
+                talking: [
+                    {
+                        events: [
+                            {type: "textMessage", text: "can I help you?", faceHero:"npcA"},
+                            {type: "textMessage", text: "I'm busy"},
+                            {who: "hero", type: "walk", direction: "up"},
+                        ]
+                    },
                 ]
             }),
             npcB: new Person({
@@ -113,6 +144,14 @@ window.OverworldMaps = {
                     { type: "walk", direction: "down" },
                     { type: "walk", direction: "right" }, 
                     { type: "walk", direction: "up" },
+                ]
+            }),
+            npcC: new Person({
+                x: utils.withGrid(2),
+                y: utils.withGrid(7),
+                src: "/images/npc2.png",
+                behaviorLoop: [ // idle behavior loop
+                    { type: "stand", direction: "left" },
                 ]
             }),
         },
@@ -223,12 +262,26 @@ window.OverworldMaps = {
             [utils.asGridCoord(0,2)] : true,
             [utils.asGridCoord(0,3)] : true,
             [utils.asGridCoord(0,4)] : true,
-            [utils.asGridCoord(0,5)] : true,
+            //[utils.asGridCoord(0,5)] : true,
+            [utils.asGridCoord(-1,5)] : true,
             [utils.asGridCoord(0,6)] : true,
             [utils.asGridCoord(0,7)] : true,
             [utils.asGridCoord(0,8)] : true,
             [utils.asGridCoord(0,9)] : true,
             [utils.asGridCoord(0,10)] : true,
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(0,5)] : [
+                {
+                    events: [
+                        {who: "npcC", type: "walk", direction: "up"},
+                        {who: "npcC", type: "stand", direction: "up", time: 500},
+                        {type: "textMessage", text: "Hey, your shift isn't over!"},
+                        {who: "hero", type: "walk", direction: "right"},
+                        {who: "npcC", type: "walk", direction: "down"},
+                    ]
+                }
+            ]
         }
     },
     Cafe2: {

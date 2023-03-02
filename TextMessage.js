@@ -16,9 +16,15 @@ class TextMessage {
         `)
 
         this.element.querySelector("button").addEventListener("click", () => {
-            // cloes the text message
+            // close the text message
             this.done();
         });
+
+        this.actionListener = new KeyPressListener("Enter", () => {
+            console.log("Enter!!");
+            this.actionListener.unbind();
+            this.done();
+        })
     }
 
 

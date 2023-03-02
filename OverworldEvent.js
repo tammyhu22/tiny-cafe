@@ -6,8 +6,6 @@ class OverworldEvent {
 
     stand(resolve) {
         const who = this.map.gameObjects[ this.event.who ];
-        console.log(who);
-        console.log(this.event);
         who.startBehavior({
             map: this.map
         }, {
@@ -29,8 +27,6 @@ class OverworldEvent {
     walk(resolve) {
         // call resolve when done
         const who = this.map.gameObjects[ this.event.who ];
-        console.log(who);
-        console.log(this.event);
         who.startBehavior({
             map: this.map
         }, {
@@ -50,6 +46,12 @@ class OverworldEvent {
     }
 
     textMessage(resolve) {
+
+        if (this.event.faceHero) {
+            const obj = this.map.gameObjects[this.event.faceHero];
+            obj.direction = utils.oppositeDirection(this.map.gameObjects["hero"].direction);
+        }
+
         const message = new TextMessage({
             text: this.event.text,
             onComplete: () => resolve()
