@@ -85,7 +85,8 @@ class Overworld {
         { who: "npcB", type: "walk", direction: "down" },
         { who: "npcB", type: "walk", direction: "down" },
         { who: "npcB", type: "stand", direction: "left", time: 200 },
-        {type: "textMessage", text: "hey girl! how's it going? I need your help."},
+        {type: "textMessage", text: "hey there!"},
+        {type: "textMessage", text: "welcome to your first day on the job"},
 
     ])
     
