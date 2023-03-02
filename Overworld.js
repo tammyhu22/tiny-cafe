@@ -58,6 +58,11 @@ class Overworld {
  }
 
  init(){
+    // show title screen
+    // this.titleScreen = new TitleScreen({
+
+    // })
+    
     this.map = new OverworldMap(window.OverworldMaps.Cafe); // config data from cafe
     this.map.mountObjects();
 
@@ -71,18 +76,18 @@ class Overworld {
 
     this.startGameLoop();
 
-    // this.map.startCutscene([
-    //     { who: "hero", type: "walk", direction: "up" },
-    //     { who: "hero", type: "walk", direction: "right" },
-    //     { who: "npcB", type: "walk", direction: "left" },
-    //     { who: "npcB", type: "walk", direction: "left" },
-    //     { who: "npcB", type: "walk", direction: "left" },
-    //     { who: "npcB", type: "walk", direction: "down" },
-    //     { who: "npcB", type: "walk", direction: "down" },
-    //     { who: "npcB", type: "stand", direction: "left", time: 200 },
-    //     {type: "textMessage", text: "hey girl!"},
+    this.map.startCutscene([
+        { who: "hero", type: "walk", direction: "up" },
+        { who: "hero", type: "walk", direction: "right" },
+        { who: "npcB", type: "walk", direction: "left" },
+        { who: "npcB", type: "walk", direction: "left" },
+        { who: "npcB", type: "walk", direction: "left" },
+        { who: "npcB", type: "walk", direction: "down" },
+        { who: "npcB", type: "walk", direction: "down" },
+        { who: "npcB", type: "stand", direction: "left", time: 200 },
+        {type: "textMessage", text: "hey girl! how's it going? I need your help."},
 
-    // ])
+    ])
     
 
 //     // whenever init, we will create a new image, assign source, download it, and when the source is downloaded,

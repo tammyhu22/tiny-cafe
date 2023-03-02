@@ -276,7 +276,8 @@ window.OverworldMaps = {
                     events: [
                         {who: "npcC", type: "walk", direction: "up"},
                         {who: "npcC", type: "stand", direction: "up", time: 500},
-                        {type: "textMessage", text: "Hey, your shift isn't over!"},
+                        {type: "textMessage", text: "Hey, where you goin'?"},
+                        {type: "textMessage", text: "you're shift isn't over yet!"},
                         {who: "hero", type: "walk", direction: "right"},
                         {who: "npcC", type: "walk", direction: "down"},
                     ]
