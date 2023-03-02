@@ -60,9 +60,11 @@ class Overworld {
         { who: "npcB", type: "walk", direction: "left" },
         { who: "npcB", type: "walk", direction: "down" },
         { who: "npcB", type: "walk", direction: "down" },
-        { who: "npcB", type: "stand", direction: "left", time: 800 },
+        { who: "npcB", type: "stand", direction: "left", time: 200 },
+        {type: "textMessage", text: "hey girl!"},
 
     ])
+    
 
 //     // whenever init, we will create a new image, assign source, download it, and when the source is downloaded,
 //     // copy pixels over to canvas which has context, which allows us to draw to canvas
