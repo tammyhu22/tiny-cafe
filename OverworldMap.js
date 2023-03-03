@@ -149,7 +149,7 @@ window.OverworldMaps = {
             npcC: new Person({
                 x: utils.withGrid(2),
                 y: utils.withGrid(7),
-                src: "/images/npc2.png",
+                src: "/images/erio.png",
                 behaviorLoop: [ // idle behavior loop
                     { type: "stand", direction: "left" },
                 ]
