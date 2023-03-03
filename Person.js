@@ -1,4 +1,7 @@
-class Person extends GameObject {
+import { GameObject } from "./GameObject";
+import { utils } from "./utils";
+
+export class Person extends GameObject {
     constructor(config) {
         super(config);
         this.movingProgressRemaining = 0; // how much left to go

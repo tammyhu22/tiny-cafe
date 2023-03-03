@@ -1,4 +1,9 @@
-class OverworldMap {
+import { Person } from "./Person";
+import { utils } from "./utils";
+import { OverworldEvent } from "./OverworldEvent";
+
+
+export class OverworldMap {
     constructor(config) {
         this.gameObjects = config.gameObjects;
         this.cutsceneSpaces = config.cutsceneSpaces || {}; 
@@ -306,3 +311,6 @@ window.OverworldMaps = {
         }
     },
 }
+
+// do i need?
+// module.exports={ map: window.OverworldMap};

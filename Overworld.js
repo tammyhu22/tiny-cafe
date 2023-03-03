@@ -1,4 +1,8 @@
-class Overworld {
+import { DirectionInput } from "./DirectionInput";
+import { KeyPressListener } from "./KeyPressListener";
+import { OverworldMap } from "./OverworldMap";
+
+export class Overworld {
  constructor(config) {
     this.element = config.element;
     this.canvas = this.element.querySelector(".game-canvas");

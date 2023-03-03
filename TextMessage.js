@@ -1,4 +1,8 @@
-class TextMessage {
+import { RevealingText } from "./RevealingText";
+import { KeyPressListener } from "./KeyPressListener";
+import "./styles/TextMessage.css";
+
+export class TextMessage {
     constructor({ text, onComplete }) {
         this.text = text;
         this.onComplete = onComplete;
